@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link href='http://www.fontonline.ir/css/BYekan.css' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.2/noty.css" />
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+	<link rel="shortcut icon" type="image/png" href="favicon.png"/>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remodal/1.1.1/remodal.min.css" integrity="sha256-NIskOH7eNIjyJFpUeh3DlE9n1amcG/bzVKbWxuIgiH4=" crossorigin="anonymous" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remodal/1.1.1/remodal-default-theme.min.css" integrity="sha256-iJlvlQFv31232zI/zrsL/jbuubLWWr/Bv99d+XfaC7Y=" crossorigin="anonymous" />
+	<title>اسکن بارنامه</title>
+	<style type="text/css">
+	.toast-container:nth-child(even) {background: #CCC}
+	.toast-container:nth-child(odd) {background: #FFF}
+	.toast-container div{
+		font-size: 14px;
+		border-bottom: 1px solid black;
+		width: 100%;
+		text-align: right;
+	}
+</style>
+</head>
+<body dir="rtl">
+	<div class="myDivToPrint" style="text-align: center;">
+		<h1>شرکت کالا رسانان چاپار</h1>
+		<h2>رسید دریافت</h2>
+		<table>
+			<thead>
+				<tr><th>ردیف</th>
+				<th>شماره بارنامه</th>
+				<th>پیش کرایه/پس کرایه</th>
+				<th>نماینده</th>
+				<th>راننده</th>
+				<th>کالای امانی</th>
+				<th>کرایه حمل</th>
+				<th>جمع کل</th>
+			</tr></thead>
+			<tbody id="RecordsTR">
+				
+			</tbody>
+		</table>
+		<div id="sumPriceContainer">
+			جمع کل : 
+			<span id="sumPrice"></span>&nbsp;&nbsp;ریال
+		</div>
+	</div>
+		<div style="background-color: white;width: 360px;height: 155px;border-radius: 4px;position: absolute;margin-top: 1px;font-size: 12px;line-height: 50px;margin-right: 66%;text-align: right;padding-right: 14px;overflow-y: scroll;z-index: 10" class="toast-container">
+		</div>
+		<div style="background-color: white;width: 360px;height:155px;border-radius: 4px;position: absolute;margin-top: 1px;font-size: 12px;line-height: 50px;margin-right: 80px;    text-align: right;padding-right: 14px;">
+			<table style="width: 100%">
+				<tbody>
+					<tr>
+						<td style="width: 30%">جمع کل :&nbsp;</td>
+						<td style="width: 70%;     text-align: right;"><div class="numberContainer">&nbsp;&nbsp;<span id="totalLiveCod" style="font-size: 23px;color: #66bb6a"></span>&nbsp;&nbsp;ریال</div></td>
+					</tr>
+					<tr>
+						<td style="width: 30%;">جمع کل کالای امانی :&nbsp;</td>
+						<td style="width: 70%;text-align: right;"><div class="numberContainer">&nbsp;&nbsp;<span id="totalLivePrice" style="font-size: 23px;color: #66bb6a"></span>&nbsp;&nbsp;ریال</div></td>
+						
+					</tr>
+					<tr>
+						<td style="width: 30%;">جمع کل + کالای امانی :&nbsp;</td>
+						<td style="width: 70%;text-align: right;"><div class="numberContainer">&nbsp;&nbsp;<span id="totalLive" style="font-size: 23px;color: #66bb6a"></span>&nbsp;&nbsp;ریال</div></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="inputContainer" style="width: 100%">
+		<form method="GET" id="form" action="#" >
+			<div class="ui-widget" style=" margin-bottom: 10px;">
+				<div for="agentTags" class="label" autofocus>نماینده : </div>
+				<input id="agentTags" autofocus>
+			</div>
+			<div class="ui-widget" style=" margin-bottom: 10px;">
+				<div for="deliverTags" class="label" autofocus>راننده :</div>
+				<input id="deliverTags" >
+			</div>
+			<div class="ui-widget" style=" margin-bottom: 10px;">
+				<div class="label" for="consignment">شماره بارنامه :</div>
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="input"  type="text" name="consignment"  placeholder="۵۴۱۰۰۰۰&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;۱۰۱">
+			</div>
+			<input type="submit" name="submit" style="display: none;">
+		</form>
+	</div>
+	</div>
+	<div class="inputContainer" style="width: 100%;margin-top: 50px"> 
+		<div style="margin: 0 auto; width: 85%;background-color: white;padding: 20px;border-radius: 4px;">
+			<table id="tblItems" class="display" cellspacing="0">
+				<thead>
+					<tr>
+						<th>ردیف</th>
+						<th>شماره بارنامه</th>
+						<th>پیش کرایه / پس کرایه</th>
+						<th>نماینده</th>
+						<th>راننده</th>
+						<th>کالای امانی</th>
+						<th>کرایه حمل</th>
+						<th>جمع کل</th>
+						<th>اقدامات</th>
+					</tr>
+				</thead>
+			</table>
+
+			<div id="reset">حذف همه</div>
+			<a href="#modal">
+				<div id="submit">ثبت</div>
+			</a>
+			<div style="clear: both;"></div>
+		</div>
+	</div>
+	<div class="remodal" id="modal" data-remodal-id="modal">
+		<button data-remodal-action="close" class="remodal-close"></button>
+		<h2 style="margin-top: -10px">ثبت نهایی بارنامه ها</h2>
+		<h4>تعداد : <span id="countRows" style="color: #66bb6a;font-size: 30px;"></span></h4>
+		<div style="width: 100%;margin-bottom: 35px;margin-top: 30px">
+			<div style="float: left;width: 50%;height: 320px;padding: 2px;"	>
+				<h2>جمع کل کالای امانی</h2>
+				<p style="font-size: 12px;margin-top: 90px">ریال&nbsp;<span  style="font-size: 23px;color: #66bb6a" id="numberTotalCod"></span></p>
+			</div>
+			<div style="width: 50%;height: 320px;padding: 2px;border-left: 2px solid #66bb6a">
+				<h2>جمع کل کرایه حمل</h2>
+				<p style="font-size: 12px;margin-top: 90px">ریال&nbsp;<span style="font-size: 23px;color: #66bb6a" id="numberTotalPrice"></span></p>
+			</div>
+		</div>
+		<h2>
+			جمع کل :
+			<p style="font-size: 12px;display: inline-block;">ریال&nbsp;</p>
+			<span id="numberTotalCodAndTotal" style="    font-size: 23px;color: #66bb6a;"></span>
+		</h2>
+		<button data-remodal-action="cancel" class="remodal-cancel">انصراف</button>
+		<button data-remodal-action="confirm" class="remodal-confirm">ثبت نهایی</button>
+	</div>
+</body>
+<footer>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.2/noty.min.js" ></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/remodal/1.1.1/remodal.min.js" integrity="sha256-tR7fz2fCeycqI9/V8mL9nyTc4lI14kg2Qm6zZHuupxE=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-animateNumber/0.0.14/jquery.animateNumber.min.js" integrity="sha256-GCAeRKCXFEtLTZ+gG1SCIrtGkYq1zZjMXkj+XUFNJqo=" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="script.js"></script>
+</footer>
+</html>
+<div class="remodal" id="modal1" data-remodal-id="modal1">
+	<button data-remodal-action="close" class="remodal-close"></button>
+	<h2 id="successMessage">با موفقیت ثبت شد</h2><img style="height: 160px;
+	width: 160px;" src="check-circle.gif">
+	<button  style="float: left;margin-top: 55px;margin-left: 130px;" class="remodal-confirm" onclick="window.opener.OpenReportWindow('Receipt_Voucher', 0, 0, 0, $('receipt_no').val(), '', '', '', '', '', '', '', '', '', '', '', '', '../');window.close();">پرینت رسید</button>
+	<input type="hidden" name="receipt_no" id="receipt_no" value="">
+</div>
+<div class="remodal" id="modalfail" data-remodal-id="modalfail">
+	<button data-remodal-action="close" class="remodal-close"></button>
+	<h2 >خطایی رخ داد !</h2><img style="float: left;margin-left: 50px;border-radius: 70px;" src="fail.gif">
+	<div style="font-size: 20px; margin-top: 60px;" id="failMessage">
+		ایرادی وجود دارد لطفا دقت کنید
+	</div>
+</div>
