@@ -27,6 +27,12 @@
 	<div class="myDivToPrint" style="text-align: center;">
 		<h1>شرکت کالا رسانان چاپار</h1>
 		<h2>رسید دریافت</h2>
+<div>تاریخ :<div id="printDate"></div></div>
+<div class="printHeaders">
+    <div>شماره رسید :<span id="receipt_no"></span></div>
+    <div>نماینده :<span id="printAgent"></span></div>
+    <div>راننده :<span id="printDeliver"></span></div>
+</div>
 		<table>
 			<thead>
 				<tr><th>ردیف</th>
@@ -54,11 +60,11 @@
 				<tbody>
 					<tr>
 						<td style="width: 30%">جمع کل :&nbsp;</td>
-						<td style="width: 70%;     text-align: right;"><div class="numberContainer">&nbsp;&nbsp;<span id="totalLiveCod" style="font-size: 23px;color: #66bb6a"></span>&nbsp;&nbsp;ریال</div></td>
+						<td style="width: 70%;     text-align: right;"><div class="numberContainer">&nbsp;&nbsp;<span id="totalLivePrice" style="font-size: 23px;color: #66bb6a"></span>&nbsp;&nbsp;ریال</div></td>
 					</tr>
 					<tr>
 						<td style="width: 30%;">جمع کل کالای امانی :&nbsp;</td>
-						<td style="width: 70%;text-align: right;"><div class="numberContainer">&nbsp;&nbsp;<span id="totalLivePrice" style="font-size: 23px;color: #66bb6a"></span>&nbsp;&nbsp;ریال</div></td>
+						<td style="width: 70%;text-align: right;"><div class="numberContainer">&nbsp;&nbsp;<span id="totalLiveCod" style="font-size: 23px;color: #66bb6a"></span>&nbsp;&nbsp;ریال</div></td>
 						
 					</tr>
 					<tr>
@@ -151,7 +157,7 @@
 	<button data-remodal-action="close" class="remodal-close"></button>
 	<h2 id="successMessage">با موفقیت ثبت شد</h2><img style="height: 160px;
 	width: 160px;" src="check-circle.gif">
-	<button  style="float: left;margin-top: 55px;margin-left: 130px;" class="remodal-confirm" onclick="window.opener.OpenReportWindow('Receipt_Voucher', 0, 0, 0, $('receipt_no').val(), '', '', '', '', '', '', '', '', '', '', '', '', '../');window.close();">پرینت رسید</button>
+	<button  style="float: left;margin-top: 55px;margin-left: 130px;" class="remodal-confirm" onclick="window.print();">پرینت رسید</button>
 	<input type="hidden" name="receipt_no" id="receipt_no" value="">
 </div>
 <div class="remodal" id="modalfail" data-remodal-id="modalfail">

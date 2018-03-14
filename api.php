@@ -17,17 +17,11 @@ if(@mysql_num_rows($rs) > 0)
         $total_amount = 0;
         if($row['TermsOfPayment'] == 0 && $agent == $row['fld_Pickup_Man_No']){
             $total_amount = $row['fld_Total_Cost'];
-        }else if($row['fld_Pickup_Man_No'] == $agent && $row['TermsOfPayment'] == 0){
-            $total_amount = '0';
         }else if($row['TermsOfPayment'] == 1 && $agent == $row['fld_Delivery_Man_No']){
-            $total_amount = $row['fld_Total_Cost'];
+            $total_amount = ($cash_contract == 2 ? 0 : $row['fld_Total_Cost']) ;
         }else if($row['TermsOfPayment'] == 1 && $agent != $row['fld_Delivery_Man_No']){
             $total_amount = '0';
         }
-        if($cash_contract == 1)
-            $fld_Total_Cost = $row['fld_Total_Cost'];
-        else
-            $fld_Total_Cost = 0;
 
         if($cash_contract == 1 && $row['fld_Total_Cost'] == 0) {
             $message    = 'بارنامه نقدی فاقد اطلاعات مالی می باشد';
@@ -46,4 +40,5 @@ if(@mysql_num_rows($rs) > 0)
 	$return_arr = array("notFound" => true, 'message' => $message);
 }
 echo json_encode($return_arr);
+
 ?>

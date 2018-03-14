@@ -213,7 +213,7 @@ $(document).ready(function(){
      $('#RecordsTR').html("");
      mytable.rows().every( function ( rowIdx, tableLoop, rowLoop ) {
       var data = this.data();
-      $('#RecordsTR').html("<tr><td>"+data[0]+"</td>"+data[1]+"<td>"+data[2]+"</td><td>"+data[3]+"</td>+<td>"+data[4]+"</td>+<td>"+data[5]+"</td>+<td>"+data[6]+"</td>+<td>"+data[7]+"</td></tr>");
+      $('#RecordsTR').prepend("<tr><td>"+data[0]+"</td><td>"+data[1]+"</td><td>"+data[2]+"</td><td>"+data[3]+"</td>+<td>"+data[4]+"</td>+<td>"+data[5]+"</td>+<td>"+data[6]+"</td>+<td>"+data[7]+"</td></tr>");
     });
      totalPrice=0;
      totalCod=0;
@@ -275,6 +275,9 @@ $(document).ready(function(){
         agentNotExist = false;
         agentDeliverNotExist = false;
         $('#receipt_no').val(data.receipt_no);
+        $('#printDate').val(data.date);
+        $('#printAgent').val($("#agentTags").val());
+        $('#printDeliver').val($("#deliverTags").val());
         $('#countRows').text();
         $('#numberTotalPrice').text();
         mytable.clear().draw();
@@ -375,18 +378,13 @@ $(document).ready(function(){
     }else{
       isValid=true;
     }
-    $('#tblItems > tbody  > tr').each(function() {
-      var tblId =$(this).find("td:eq(1)").text();
-      if (tblId ==$id) {
-
-       $('.toast-container').prepend('<div>بارنامه تکراری است ! '+ $id+'</div>');
-
+      if(price[$id]!==undefined){
+ 		 $('.toast-container').prepend('<div>بارنامه تکراری است ! '+ $id+'</div>');
        $('input[name=consignment]').val("");
        $('input[name=consignment]').focus();
        isExist=true;
        $hasError=true;
-     }
-   });
+    }
     if ($('#agentTags').val()=="") {
 
       $('#agentTags').select();

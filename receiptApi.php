@@ -43,10 +43,8 @@ if (count($exist) <= 0) {
             $total = 0;
             if($row_cons['TermsOfPayment'] == 0 && $agent == $row_cons['fld_Pickup_Man_No']){
                 $total = $row_cons['fld_Total_Cost'];
-            }else if($row_cons['fld_Pickup_Man_No'] == $agent && $row_cons['TermsOfPayment'] == 0){
-                $total = '0';
             }else if($row_cons['TermsOfPayment'] == 1 && $agent == $row_cons['fld_Delivery_Man_No']){
-                $total = $row_cons['fld_Total_Cost'];
+                $total = $cash_contract == 2 ? 0 : $row_cons['fld_Total_Cost'];
             }else if($row_cons['TermsOfPayment'] == 1 && $agent != $row_cons['fld_Delivery_Man_No']){
                 $total = '0';
             }
@@ -63,5 +61,6 @@ if (count($exist) <= 0) {
 	}
 }
 echo json_encode(array('return' => $return, 'message' => $message, 'receipt_no' => $insert));
+
 ?>
 

@@ -97,9 +97,20 @@ button{
   .myDivToPrint *{
     visibility: visible;
   }
+ .printHeaders div{
+  	display:inline-block;
+  	margin:10px;
+  }
+  .printHeaders div span{
+  	padding-right:5px;
+  }
   #sumPriceContainer{
       margin-top: 10px;
       padding: 6px;
+  }
+#printDate{
+  	display: inline-block;
+    direction: ltr;
   }
   *{
    visibility: hidden;
@@ -108,12 +119,12 @@ button{
   display: none;
  }
  @page {
-  size: auto;   /* auto is the initial value */
-  margin: 0.2cm;
+  size: A4;   /* auto is the initial value */
+  margin: 0 auto;
 }
 
 html, body {
-  height: 100%;  
+
   display: block;  
 }
 .tableContent{
@@ -131,6 +142,7 @@ html, body {
     border-collapse: collapse;
 
 }
+
 td{
   padding: 4px;
 }
@@ -147,14 +159,15 @@ td{
   background-color: white;
   height: 100%;
   width: 100%;
-  position: fixed;
   top: 0;
   left: 0;
   margin: 0;
   padding: 15px;
   font-size: 14px;
   line-height: 18px;
+
 }
+
 }
 
 /*
